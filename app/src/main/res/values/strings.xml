@@ -5,4 +5,11 @@
     <string name="Wednesday">WED</string>
     <string name="Thursday">THU</string>
     <string name="Friday">FRI</string>
+
+    <string-array name="duration">
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>4 hours</item>
+    </string-array>
 </resources>

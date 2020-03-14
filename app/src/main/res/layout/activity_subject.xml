@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SubjectActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:text="Subject Name"
+    />
+
+    <EditText
+        android:id="@+id/subjectName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Subject Name"
+        android:layout_margin="16dp"
+        />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:text="Select Class Duration"
+        />
+    <Spinner
+        android:id="@+id/subjectDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:entries="@array/duration">
+    </Spinner>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:text="Classroom"/>
+
+    <EditText
+        android:id="@+id/subjectRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Classroom"
+        android:layout_margin="16dp"
+        />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:text="Select Subject Colour"/>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/btnBlue"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:onClick="selectColour"
+            style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+            android:id="@+id/btnYellow"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:onClick="selectColour"
+            style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+            android:id="@+id/btnGreen"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:onClick="selectColour"
+            style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+            android:id="@+id/btnRed"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:onClick="selectColour"
+            style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+            android:id="@+id/btnOrange"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:onClick="selectColour"
+            style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+            android:id="@+id/btnPink"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:onClick="selectColour"
+            style="?android:attr/borderlessButtonStyle" />
+
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="cancelSubject"
+        android:text="Cancel"
+        style="?android:attr/borderlessButtonStyle" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="addSubject"
+        android:text="Add"
+        style="?android:attr/borderlessButtonStyle" />
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
