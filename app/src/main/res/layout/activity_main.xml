@@ -3,24 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:collapseColumns="">
 
         <TableRow
-            android:id="@+id/rowDay"
-            android:layout_width="match_parent"
-            android:layout_height="10dp">
+            android:id="@+id/rowDay">
+
+            <Button
+                android:id="@+id/btnHrs"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:onClick="hrsClicked"
+                android:text="hrs"
+                android:textSize="24sp"
+            />
 
             <Button
                 android:id="@+id/btnMon"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:onClick="dayClicked"
                 android:textSize="24sp"
                 android:text="@string/Monday">
@@ -30,8 +36,6 @@
                 android:id="@+id/btnTue"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:onClick="dayClicked"
                 android:textSize="24sp"
                 android:text="@string/Tuesday">
@@ -41,8 +45,6 @@
                 android:id="@+id/btnWed"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:onClick="dayClicked"
                 android:textSize="24sp"
                 android:text="@string/Wednesday">
@@ -51,8 +53,6 @@
                 android:id="@+id/btnThu"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:onClick="dayClicked"
                 android:textSize="24sp"
                 android:text="@string/Thursday">
@@ -61,14 +61,117 @@
                 android:id="@+id/btnFri"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:onClick="dayClicked"
                 android:textSize="24sp"
                 android:text="@string/Friday">
             </Button>
         </TableRow>
 
+        <TableRow
+            android:layout_height="wrap_content">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alignmentMode="alignBounds"
+                android:columnCount="1"
+                android:useDefaultMargins="true">
+
+                <TextView
+                    android:layout_height="36dp"
+                    android:text="9am"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:layout_gravity="fill"/>
+
+                <TextView
+                    android:layout_height="36dp"
+                    android:layout_gravity="fill"
+                    android:text="10am"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_height="36dp"
+                    android:layout_gravity="fill"
+                    android:text="11am"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+
+
+                <TextView
+                    android:layout_height="36dp"
+                    android:layout_gravity="fill"
+                    android:text="12pm"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_height="36dp"
+                    android:layout_gravity="fill"
+                    android:text="1pm"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_height="36dp"
+                    android:layout_gravity="fill"
+                    android:text="2pm"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_height="36dp"
+                    android:layout_gravity="fill"
+                    android:text="3pm"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_height="36dp"
+                    android:layout_gravity="fill"
+                    android:text="4pm"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+
+            </GridLayout>
+
+            <GridLayout
+                android:id="@+id/gridMon"
+                android:layout_width="match_parent"
+                android:columnCount="1">
+
+            </GridLayout>
+
+            <GridLayout
+                android:id="@+id/gridTue"
+                android:layout_width="match_parent"
+                android:columnCount="1">
+
+            </GridLayout>
+
+            <GridLayout
+                android:id="@+id/gridWed"
+                android:layout_width="match_parent"
+                android:columnCount="1">
+
+            </GridLayout>
+
+            <GridLayout
+                android:id="@+id/gridThu"
+                android:layout_width="match_parent"
+                android:columnCount="1">
+
+            </GridLayout>
+
+            <GridLayout
+                android:id="@+id/gridFri"
+                android:layout_width="match_parent"
+                android:columnCount="1">
+
+            </GridLayout>
+
+        </TableRow>
 
     </TableLayout>
 
