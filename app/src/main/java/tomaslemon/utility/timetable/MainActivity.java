@@ -54,6 +54,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
+
+    }
+
+    public void buildTimetable(){
+        for(Subject.Day day : Subject.Day.values()){
+            for(int hour = 9; hour<17; hour++){
+                for(Subject subject : subjects){
+                    if(subject.getDay() == day && subject.getTime() == hour){
+                        //TODO: Create button to display subject
+                        //add duration onto hours to skip rows, make rowSpan based on duration
+                    }else{
+                        //TODO: Create button to add subject
+                    }
+                }
+            }
+        }
     }
 
     public void dayClicked(View view) {
