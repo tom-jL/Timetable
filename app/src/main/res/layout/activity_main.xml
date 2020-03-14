@@ -1,18 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TableRow
+            android:id="@+id/rowDay"
+            android:layout_width="match_parent"
+            android:layout_height="10dp">
+
+            <Button
+                android:id="@+id/btnMon"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="dayClicked"
+                android:textSize="24sp"
+                android:text="@string/Monday">
+            </Button>
+
+            <Button
+                android:id="@+id/btnTue"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="dayClicked"
+                android:textSize="24sp"
+                android:text="@string/Tuesday">
+            </Button>
+
+            <Button
+                android:id="@+id/btnWed"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="dayClicked"
+                android:textSize="24sp"
+                android:text="@string/Wednesday">
+            </Button>
+            <Button
+                android:id="@+id/btnThu"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="dayClicked"
+                android:textSize="24sp"
+                android:text="@string/Thursday">
+            </Button>
+            <Button
+                android:id="@+id/btnFri"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="dayClicked"
+                android:textSize="24sp"
+                android:text="@string/Friday">
+            </Button>
+        </TableRow>
+
+
+    </TableLayout>
+
+</LinearLayout>
