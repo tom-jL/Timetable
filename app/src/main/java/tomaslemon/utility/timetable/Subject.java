@@ -12,6 +12,7 @@ public class Subject {
     private int duration;
     private int color;
     private String room;
+    private long id;
 
 
     public enum Day{
@@ -31,13 +32,42 @@ public class Subject {
         this.room = "";
     }
 
-    public Subject(String name, Day day, int time, int duration, int color, String room){
+    public Subject(long id, String name, Day day, int time, int duration, int color, String room){
+        this.id = id;
         this.name = name;
         this.day = day;
         this.time = time;
         this.duration = duration;
         this.color = color;
         this.room = room;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    public void setDay(Day day) {
+        this.day = day;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 
     public Day getDay() {
@@ -62,5 +92,9 @@ public class Subject {
 
     public String getRoom() {
         return room;
+    }
+
+    public long getId() {
+        return id;
     }
 }
