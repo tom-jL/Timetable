@@ -2,6 +2,7 @@ package tomaslemon.utility.timetable;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -59,15 +61,14 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
         }
 
-
-
+        buildTimetable();
 
     }
 
     public void buildTimetable(){
-        TableRow dayRow = (TableRow) findViewById(R.id.rowDay);
+        TableRow tableRow = (TableRow) findViewById(R.id.subjectsRow);
         for(Subject.Day day : Subject.Day.values()){
-            GridLayout dayGrid = (GridLayout) dayRow.getChildAt(day.ordinal()+1);
+            GridLayout dayGrid = (GridLayout) tableRow.getChildAt(day.ordinal()+1);
             for(int hour = 9; hour<17; hour++){
                 boolean available = true;
                 for(Subject subject : subjects){
@@ -94,11 +95,34 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if(available){
-
+                    ImageButton addSubjectBtn = new ImageButton(this);
+                    addSubjectBtn.setImageResource(android.R.drawable.ic_input_add);
+                    GridLayout.LayoutParams params=new GridLayout.LayoutParams();
+                    params.height = 65;
+                    params.width = GridLayout.LayoutParams.MATCH_PARENT;
+                    params.columnSpec = GridLayout.spec(0);
+                    params.rowSpec = GridLayout.spec(hour-9);
+                    addSubjectBtn.setLayoutParams(params);
+                    //addSubjectClick(addSubjectBtn,day,hour);
+                    dayGrid.addView(addSubjectBtn);
                 }
 
             }
         }
+    }
+
+    private void addSubjectClick(final ImageButton btn, final Subject.Day day,final int hour){
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSubject(v, day, hour);
+            }
+        });
+    }
+
+    public void addSubject(View view, Subject.Day day, int hour){
+            Intent intent = new Intent(this, SubjectActivity.class);
+
     }
 
     public void dayClicked(View view) {
