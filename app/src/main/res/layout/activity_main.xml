@@ -68,6 +68,7 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/dayRow"
             android:layout_height="wrap_content">
 
             <GridLayout

@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -15,6 +19,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<Subject> subjects;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,20 +65,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buildTimetable(){
+        TableRow dayRow = (TableRow) findViewById(R.id.rowDay);
         for(Subject.Day day : Subject.Day.values()){
+            GridLayout dayGrid = (GridLayout) dayRow.getChildAt(day.ordinal()+1);
             for(int hour = 9; hour<17; hour++){
+                boolean available = true;
                 for(Subject subject : subjects){
                     if(subject.getDay() == day && subject.getTime() == hour){
-                        //TODO: Create button to display subject
+                        available = false;
+                        Button subjectBtn = new Button(this);
+                        subjectBtn.setText(subject.getName());
+                        subjectBtn.setBackgroundColor(subject.getColor());
+                        GridLayout.LayoutParams params=new GridLayout.LayoutParams();
+                        params.height = GridLayout.LayoutParams.WRAP_CONTENT;
+                        params.width = GridLayout.LayoutParams.WRAP_CONTENT;
+                        params.columnSpec = GridLayout.spec(0);
+                        params.rowSpec = GridLayout.spec(hour-9, subject.getDuration());
+                        subjectBtn.setLayoutParams(params);
+                        subjectBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //TODO: Add button expansion capability.
+                            }
+                        });
+                        dayGrid.addView(subjectBtn);
+                        hour += subject.getDuration()-1;
                         //add duration onto hours to skip rows, make rowSpan based on duration
-                    }else{
-                        //TODO: Create button to add subject
                     }
                 }
+                if(available){
+
+                }
+
             }
         }
     }
 
     public void dayClicked(View view) {
+    }
+
+    public void hrsClicked(View view) {
     }
 }
