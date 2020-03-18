@@ -1,14 +1,18 @@
 package tomaslemon.utility.timetable;
 
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
@@ -22,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Subject> subjects;
 
+    ArrayList<int[]> selectedTimes;
+    ArrayList<Button> selectedBtns;
+
 
 
     @Override
@@ -30,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         subjects = new ArrayList<>();
+        selectedTimes = new ArrayList<>();
+        selectedBtns = new ArrayList<>();
 
         SQLiteOpenHelper subjectDatabaseHelper = new SubjectDatabaseHelper(this);
         try{
@@ -67,10 +76,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void buildTimetable(){
         TableRow tableRow = (TableRow) findViewById(R.id.subjectsRow);
+        boolean available;
         for(Subject.Day day : Subject.Day.values()){
             GridLayout dayGrid = (GridLayout) tableRow.getChildAt(day.ordinal()+1);
             for(int hour = 9; hour<17; hour++){
-                boolean available = true;
+                available = true;
                 for(Subject subject : subjects){
                     if(subject.getDay() == day && subject.getTime() == hour){
                         available = false;
@@ -95,15 +105,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if(available){
-                    ImageButton addSubjectBtn = new ImageButton(this);
-                    addSubjectBtn.setImageResource(android.R.drawable.ic_input_add);
+                    Button addSubjectBtn = new Button(this);
+                    addSubjectBtn.setBackgroundColor(getResources().getColor(android.R.color.white));
                     GridLayout.LayoutParams params=new GridLayout.LayoutParams();
-                    params.height = 65;
+                    params.height = (int)(getResources().getDisplayMetrics().heightPixels / 9.3);
+                    params.bottomMargin = (int) getResources().getDisplayMetrics().density;
+                    params.rightMargin = (int) getResources().getDisplayMetrics().density;
                     params.width = GridLayout.LayoutParams.MATCH_PARENT;
                     params.columnSpec = GridLayout.spec(0);
                     params.rowSpec = GridLayout.spec(hour-9);
                     addSubjectBtn.setLayoutParams(params);
-                    //addSubjectClick(addSubjectBtn,day,hour);
+                    addSubjectClick(addSubjectBtn,day,hour);
                     dayGrid.addView(addSubjectBtn);
                 }
 
@@ -111,18 +123,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void addSubjectClick(final ImageButton btn, final Subject.Day day,final int hour){
-        btn.setOnClickListener(new View.OnClickListener() {
+    @SuppressLint("ClickableViewAccessibility")
+    private void addSubjectClick(final Button btn, final Subject.Day day, final int hour){
+        btn.setOnTouchListener(new OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                addSubject(v, day, hour);
+            public boolean onTouch(View v, MotionEvent event) {
+                Button button = (Button) v;
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    button.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+                    button.setText(day.toString()+hour);
+                    selectedTimes.add(new int[]{day.ordinal(),hour});
+                } else if (event.getAction() == MotionEvent.ACTION_UP){
+                    addSubject(v);
+                    selectedTimes.clear();
+                }
+                return false;
             }
+
         });
     }
 
-    public void addSubject(View view, Subject.Day day, int hour){
-            Intent intent = new Intent(this, SubjectActivity.class);
+    public void addSubject(View view){
 
+            Intent intent = new Intent(this, SubjectActivity.class);
     }
 
     public void dayClicked(View view) {
