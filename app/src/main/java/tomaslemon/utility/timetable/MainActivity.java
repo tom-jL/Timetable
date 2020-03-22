@@ -25,11 +25,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<Subject> subjects;
-
-    ArrayList<int[]> selectedTimes;
-    ArrayList<Button> selectedBtns;
-
-
+    ArrayList<SubjectButton> selectedBtns; //temporarily selected buttons for subject creation.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         subjects = new ArrayList<>();
-        selectedTimes = new ArrayList<>();
         selectedBtns = new ArrayList<>();
 
         SQLiteOpenHelper subjectDatabaseHelper = new SubjectDatabaseHelper(this);
@@ -74,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void buildTimetable(){
         TableRow tableRow = (TableRow) findViewById(R.id.subjectsRow);
         boolean available;
@@ -84,15 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 for(Subject subject : subjects){
                     if(subject.getDay() == day && subject.getTime() == hour){
                         available = false;
-                        Button subjectBtn = new Button(this);
-                        subjectBtn.setText(subject.getName());
-                        subjectBtn.setBackgroundColor(subject.getColor());
-                        GridLayout.LayoutParams params=new GridLayout.LayoutParams();
-                        params.height = GridLayout.LayoutParams.WRAP_CONTENT;
-                        params.width = GridLayout.LayoutParams.WRAP_CONTENT;
-                        params.columnSpec = GridLayout.spec(0);
-                        params.rowSpec = GridLayout.spec(hour-9, subject.getDuration());
-                        subjectBtn.setLayoutParams(params);
+                        SubjectButton subjectBtn = new SubjectButton(this, subject);
                         subjectBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -105,42 +93,28 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if(available){
-                    Button addSubjectBtn = new Button(this);
-                    addSubjectBtn.setBackgroundColor(getResources().getColor(android.R.color.white));
-                    GridLayout.LayoutParams params=new GridLayout.LayoutParams();
-                    params.height = (int)(getResources().getDisplayMetrics().heightPixels / 9.3);
-                    params.bottomMargin = (int) getResources().getDisplayMetrics().density;
-                    params.rightMargin = (int) getResources().getDisplayMetrics().density;
-                    params.width = GridLayout.LayoutParams.MATCH_PARENT;
-                    params.columnSpec = GridLayout.spec(0);
-                    params.rowSpec = GridLayout.spec(hour-9);
-                    addSubjectBtn.setLayoutParams(params);
-                    addSubjectClick(addSubjectBtn,day,hour);
+                    SubjectButton addSubjectBtn = new SubjectButton(this, day, hour);
+                    addSubjectBtn.setOnTouchListener(new OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            SubjectButton subjectButton = (SubjectButton) v;
+                            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                                subjectButton.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+                                subjectButton.setText(subjectButton.getHour() + "" + subjectButton.getDay()); // For testing
+                                selectedBtns.add(subjectButton);
+                                return true;
+                            } else if (event.getAction() == MotionEvent.ACTION_UP){
+                                addSubject(subjectButton);
+                                selectedBtns.clear();
+                            }
+                            return false;
+                        }
+                    });
                     dayGrid.addView(addSubjectBtn);
                 }
 
             }
         }
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private void addSubjectClick(final Button btn, final Subject.Day day, final int hour){
-        btn.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Button button = (Button) v;
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    button.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-                    button.setText(day.toString()+hour);
-                    selectedTimes.add(new int[]{day.ordinal(),hour});
-                } else if (event.getAction() == MotionEvent.ACTION_UP){
-                    addSubject(v);
-                    selectedTimes.clear();
-                }
-                return false;
-            }
-
-        });
     }
 
     public void addSubject(View view){
