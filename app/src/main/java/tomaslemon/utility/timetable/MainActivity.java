@@ -1,6 +1,7 @@
 package tomaslemon.utility.timetable;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -35,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
         subjects = new ArrayList<>();
         selectedBtns = new ArrayList<>();
 
+        getSubjects();
+        buildTimetable();
+
+    }
+
+    private void getSubjects() {
+        subjects.clear();
         SQLiteOpenHelper subjectDatabaseHelper = new SubjectDatabaseHelper(this);
         try{
             SQLiteDatabase db = subjectDatabaseHelper.getReadableDatabase();
@@ -64,9 +72,6 @@ public class MainActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
-
-        buildTimetable();
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -75,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         boolean available;
         for(Subject.Day day : Subject.Day.values()){
             GridLayout dayGrid = (GridLayout) tableRow.getChildAt(day.ordinal()+1);
+            dayGrid.removeAllViewsInLayout();
             for(int hour = 9; hour<17; hour++){
                 available = true;
                 for(Subject subject : subjects){
@@ -118,8 +124,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addSubject(View view){
-
+            int hour = selectedBtns.get(0).getHour();
+            Subject.Day day = selectedBtns.get(0).getDay();
+            int duration = selectedBtns.size();
             Intent intent = new Intent(this, SubjectActivity.class);
+            intent.putExtra(SubjectActivity.EXTRA_HOUR,hour);
+            intent.putExtra(SubjectActivity.EXTRA_DAY,day);
+            intent.putExtra(SubjectActivity.EXTRA_DURATION,duration);
+            startActivityForResult(intent,SubjectActivity.SUBJECT_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SubjectActivity.SUBJECT_REQUEST){
+            if(resultCode == RESULT_OK){
+                getSubjects();
+                buildTimetable();
+            }
+        }
+
+
     }
 
     public void dayClicked(View view) {

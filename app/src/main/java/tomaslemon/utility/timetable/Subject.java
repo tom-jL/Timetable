@@ -23,14 +23,16 @@ public class Subject {
         FRI
     }
 
-    public Subject(){
+    public Subject(int time, int duration, Day day){
         this.name = "";
-        this.day = Day.MON;
-        this.time = 9;
-        this.duration = 1;
+        this.day = day;
+        this.time = time;
+        this.duration = duration;
         this.color = Color.BLUE;
         this.room = "";
     }
+
+
 
     public Subject(long id, String name, Day day, int time, int duration, int color, String room){
         this.id = id;
