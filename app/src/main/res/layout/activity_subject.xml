@@ -15,12 +15,12 @@
         android:textAlignment="center"
         android:textSize="36sp"
         android:text=""
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         />
 
 
     <TextView
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -33,11 +33,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Subject Name"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         />
 
     <TextView
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -49,11 +49,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Classroom"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         />
 
     <TextView
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -127,8 +127,7 @@
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
+        android:orientation="horizontal">
 
     <Button
         android:id="@+id/btnCancel"
@@ -137,8 +136,7 @@
         android:layout_height="wrap_content"
         android:onClick="cancelSubject"
         android:background="#E2E91E1E"
-        android:text="Cancel"
-        style="?android:attr/borderlessButtonStyle" />
+        android:text="Cancel" />
 
     <Button
         android:id="@+id/btnAdd"
@@ -147,8 +145,7 @@
         android:layout_height="wrap_content"
         android:onClick="addSubject"
         android:background="#8BC34A"
-        android:text="Add"
-        style="?android:attr/borderlessButtonStyle" />
+        android:text="Add" />
 
 
     </LinearLayout>

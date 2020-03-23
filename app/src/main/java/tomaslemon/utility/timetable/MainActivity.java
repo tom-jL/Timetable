@@ -105,8 +105,6 @@ public class MainActivity extends AppCompatActivity {
                         public boolean onTouch(View v, MotionEvent event) {
                             SubjectButton subjectButton = (SubjectButton) v;
                             if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                                subjectButton.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-                                subjectButton.setText(subjectButton.getHour() + "" + subjectButton.getDay()); // For testing
                                 selectedBtns.add(subjectButton);
                                 return true;
                             } else if (event.getAction() == MotionEvent.ACTION_UP){

@@ -30,7 +30,8 @@ public class SubjectDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    private static void insertSubject(SQLiteDatabase db, Subject subject){
+    public void insertSubject(Subject subject){
+        SQLiteDatabase db = getWritableDatabase();
         ContentValues subjectValues = new ContentValues();
         subjectValues.put("NAME", subject.getName());
         subjectValues.put("DAY", subject.getDay().ordinal());
@@ -40,9 +41,12 @@ public class SubjectDatabaseHelper extends SQLiteOpenHelper {
         subjectValues.put("ROOM", subject.getRoom());
         long id = db.insert("SUBJECT", null, subjectValues);
         subject.setId(id);
+        db.close();
     }
 
-    private static void deleteSubject(SQLiteDatabase db, Subject subject){
+    public void deleteSubject(Subject subject){
+        SQLiteDatabase db = getWritableDatabase();
         db.delete("SUBJECT","_id = ?", new String[] {Long.toString(subject.getId())});
+        db.close();
     }
 }
