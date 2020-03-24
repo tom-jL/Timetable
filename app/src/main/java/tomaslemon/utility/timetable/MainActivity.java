@@ -2,6 +2,7 @@ package tomaslemon.utility.timetable;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Subject> subjects;
     ArrayList<SubjectButton> selectedBtns; //temporarily selected buttons for subject creation.
+
+    Button selectedDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +151,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void dayClicked(View view) {
+        TableLayout timeTable = (TableLayout) findViewById(R.id.timeTable);
+        TableRow tableRow = (TableRow) timeTable.getChildAt(0);
+        if(view == selectedDay){
+            for(int i = 1; i < tableRow.getChildCount(); i++){
+                timeTable.setColumnCollapsed(i,false);
+            }
+            selectedDay = null;
+        } else {
+            selectedDay = (Button) view;
+            for(int i = 1; i < tableRow.getChildCount(); i++){
+                if(!(tableRow.getChildAt(i) == selectedDay)){
+                    timeTable.setColumnCollapsed(i,true);
+                }
+            }
+        }
     }
 
     public void hrsClicked(View view) {

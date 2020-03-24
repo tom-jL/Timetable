@@ -35,7 +35,7 @@ public class SubjectButton extends androidx.appcompat.widget.AppCompatButton {
         this.subject = subject;
         this.day = subject.getDay();
         this.hour = subject.getTime();
-        setText(subject.getName());
+        setText(subject.getName()+ " "+subject.getRoom());
         setBackgroundColor(subject.getColor());
         //setSingleLine();
         GridLayout.LayoutParams params=new GridLayout.LayoutParams();
