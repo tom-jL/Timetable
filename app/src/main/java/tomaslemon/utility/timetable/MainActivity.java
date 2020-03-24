@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Subject> subjects;
     ArrayList<SubjectButton> selectedBtns; //temporarily selected buttons for subject creation.
 
+    int cellHeight;
+
     Button selectedDay;
 
     @Override
@@ -40,8 +43,12 @@ public class MainActivity extends AppCompatActivity {
         subjects = new ArrayList<>();
         selectedBtns = new ArrayList<>();
 
+        cellHeight = (int)(getResources().getDisplayMetrics().heightPixels / 9.3);
+
         getSubjects();
-        buildTimetable();
+        buildTimetable(cellHeight);
+
+
 
     }
 
@@ -79,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    public void buildTimetable(){
+    public void buildTimetable(int cellHeight){
         TableRow tableRow = (TableRow) findViewById(R.id.subjectsRow);
         boolean available;
         for(Subject.Day day : Subject.Day.values()){
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 for(Subject subject : subjects){
                     if(subject.getDay() == day && subject.getTime() == hour){
                         available = false;
-                        SubjectButton subjectBtn = new SubjectButton(this, subject);
+                        SubjectButton subjectBtn = new SubjectButton(this, subject, cellHeight);
                         subjectBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -103,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if(available){
-                    SubjectButton addSubjectBtn = new SubjectButton(this, day, hour);
+                    SubjectButton addSubjectBtn = new SubjectButton(this, day, hour, cellHeight);
                     addSubjectBtn.setOnTouchListener(new OnTouchListener() {
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
@@ -143,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == SubjectActivity.SUBJECT_REQUEST){
             if(resultCode == RESULT_OK){
                 getSubjects();
-                buildTimetable();
+                buildTimetable(cellHeight);
             }
         }
 
@@ -170,4 +177,5 @@ public class MainActivity extends AppCompatActivity {
 
     public void hrsClicked(View view) {
     }
+
 }

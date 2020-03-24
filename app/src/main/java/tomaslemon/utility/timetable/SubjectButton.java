@@ -12,15 +12,15 @@ public class SubjectButton extends androidx.appcompat.widget.AppCompatButton {
 
 
     //Constructor for unassigned subject.
-    public SubjectButton(Context context, Subject.Day day, int hour){
+    public SubjectButton(Context context, Subject.Day day, int hour, int cellHeight){
         super(context);
         this.day = day;
         this.hour = hour;
-        //setSingleLine();
-        setMaxLines(2);
+        setSingleLine();
+        //setMaxHeight((int)(getResources().getDisplayMetrics().heightPixels / 9.3));
         setBackgroundColor(getResources().getColor(android.R.color.white));
         GridLayout.LayoutParams params=new GridLayout.LayoutParams();
-        params.height = (int)(getResources().getDisplayMetrics().heightPixels / 9.3);
+        params.height = cellHeight;
         params.bottomMargin = (int) getResources().getDisplayMetrics().density;
         params.rightMargin = (int) getResources().getDisplayMetrics().density;
         params.width = GridLayout.LayoutParams.MATCH_PARENT;
@@ -30,21 +30,21 @@ public class SubjectButton extends androidx.appcompat.widget.AppCompatButton {
     }
 
     //Constructor for assigned subject.
-    public SubjectButton(Context context, Subject subject){
+    public SubjectButton(Context context, Subject subject, int cellHeight){
         super(context);
         this.subject = subject;
         this.day = subject.getDay();
         this.hour = subject.getTime();
         setText(subject.getName()+ " "+subject.getRoom());
         setBackgroundColor(subject.getColor());
-        //setSingleLine();
+        setSingleLine();
+        //setMaxHeight((int)(getResources().getDisplayMetrics().heightPixels / 9.3));
         GridLayout.LayoutParams params=new GridLayout.LayoutParams();
-        params.height = (int)(getResources().getDisplayMetrics().heightPixels / 9.3);
+        params.height = cellHeight;
         params.bottomMargin = (int) getResources().getDisplayMetrics().density;
         params.rightMargin = (int) getResources().getDisplayMetrics().density;
         params.width = GridLayout.LayoutParams.MATCH_PARENT;
         params.columnSpec = GridLayout.spec(0);
-        setMaxLines(2);
         params.rowSpec = GridLayout.spec(hour-9, subject.getDuration());
         setLayoutParams(params);
     }
