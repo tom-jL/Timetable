@@ -30,7 +30,7 @@ public class SubjectDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insertSubject(Subject subject){
+    void insertSubject(Subject subject){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues subjectValues = new ContentValues();
         subjectValues.put("NAME", subject.getName());

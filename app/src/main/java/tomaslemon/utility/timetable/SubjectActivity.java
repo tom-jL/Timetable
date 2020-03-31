@@ -2,11 +2,9 @@ package tomaslemon.utility.timetable;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +13,6 @@ import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
 
 public class SubjectActivity extends AppCompatActivity {
 
@@ -28,6 +24,7 @@ public class SubjectActivity extends AppCompatActivity {
 
     Subject subject;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +37,7 @@ public class SubjectActivity extends AppCompatActivity {
 
         subject = new Subject(hour, duration, day);
 
-        TextView timeView = (TextView) findViewById(R.id.subjectTime);
+        TextView timeView = findViewById(R.id.subjectTime);
         timeView.setText(hour + " " + day);
 
     }
@@ -48,7 +45,7 @@ public class SubjectActivity extends AppCompatActivity {
 
     public void selectColour(View view) {
         Button colorBtn = (Button) view;
-        GridLayout colorBtns = (GridLayout) findViewById(R.id.colorBtns);
+        GridLayout colorBtns = findViewById(R.id.colorBtns);
         for(int i = 0; i < colorBtns.getChildCount(); i ++){
             ((Button)colorBtns.getChildAt(i)).setText("");
         }

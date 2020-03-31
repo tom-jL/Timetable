@@ -11,52 +11,58 @@
         android:id="@+id/rowDay">
 
         <Button
+            android:layout_height="match_parent"
             android:id="@+id/btnHrs"
             style="@style/Widget.AppCompat.Button"
             android:text="@string/time"
-            android:textSize="24sp"
+            android:textSize="22sp"
         />
 
         <Button
+            android:layout_height="match_parent"
             android:id="@+id/btnMon"
             style="@style/Widget.AppCompat.Button"
             android:layout_weight="1"
             android:onClick="dayClicked"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:text="@string/Monday">
         </Button>
 
         <Button
+            android:layout_height="match_parent"
             android:id="@+id/btnTue"
             style="@style/Widget.AppCompat.Button"
             android:layout_weight="1"
             android:onClick="dayClicked"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:text="@string/Tuesday">
         </Button>
 
         <Button
+            android:layout_height="match_parent"
             android:id="@+id/btnWed"
             style="@style/Widget.AppCompat.Button"
             android:layout_weight="1"
             android:onClick="dayClicked"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:text="@string/Wednesday">
         </Button>
         <Button
+            android:layout_height="match_parent"
             android:id="@+id/btnThu"
             style="@style/Widget.AppCompat.Button"
             android:layout_weight="1"
             android:onClick="dayClicked"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:text="@string/Thursday">
         </Button>
         <Button
+            android:layout_height="match_parent"
             android:id="@+id/btnFri"
             style="@style/Widget.AppCompat.Button"
             android:layout_weight="1"
             android:onClick="dayClicked"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:text="@string/Friday">
         </Button>
     </TableRow>

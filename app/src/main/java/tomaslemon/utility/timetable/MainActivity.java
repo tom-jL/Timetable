@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -24,10 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Subject> subjects;
     ArrayList<SubjectButton> selectedBtns; //temporarily selected buttons for subject creation.
-
     int cellHeight;
-
     Button selectedDay;
+    Handler btnHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
         subjects = new ArrayList<>();
         selectedBtns = new ArrayList<>();
 
-        cellHeight = (int)(getResources().getDisplayMetrics().heightPixels / 9.3);
+        btnHandler = new Handler();
+
+        cellHeight = getResources().getDisplayMetrics().heightPixels / 9; //find the height of grid cells based on screen height.
+        TableRow rowDay = findViewById(R.id.rowDay);
+        rowDay.setMinimumHeight(cellHeight);
 
         getSubjects();
-        buildTimetable(cellHeight);
-
-
+        buildTimetable();
 
     }
 
@@ -80,22 +82,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    public void buildTimetable(int cellHeight){
+    public void buildTimetable(){
         TableRow tableRow = findViewById(R.id.subjectsRow);
         boolean available;
         for(Subject.Day day : Subject.Day.values()){
-            GridLayout dayGrid = (GridLayout) tableRow.getChildAt(day.ordinal()+1);
+            final GridLayout dayGrid = (GridLayout) tableRow.getChildAt(day.ordinal()+1);
             dayGrid.removeAllViewsInLayout();
             for(int hour = 9; hour<17; hour++){
                 available = true;
                 for(Subject subject : subjects){
                     if(subject.getDay() == day && subject.getTime() == hour){
                         available = false;
-                        SubjectButton subjectBtn = new SubjectButton(this, subject, cellHeight);
-                        subjectBtn.setOnClickListener(new View.OnClickListener() {
+                        final SubjectButton subjectBtn = new SubjectButton(this, subject, cellHeight);
+                        final Runnable removeSubjectTask = new Runnable() {
                             @Override
-                            public void onClick(View v) {
-                                //TODO: Add button expansion capability.
+                            public void run() {
+                                removeSubject(subjectBtn);
+
+                            }
+                        };
+                        subjectBtn.setOnTouchListener(new OnTouchListener() {
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+                                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                                    btnHandler.postDelayed(removeSubjectTask, 1000);
+                                } else if (event.getAction() == MotionEvent.ACTION_UP){
+                                    btnHandler.removeCallbacks(removeSubjectTask);
+                                }
+                                return true;
                             }
                         });
                         dayGrid.addView(subjectBtn);
@@ -105,28 +119,39 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(available){
                     SubjectButton addSubjectBtn = new SubjectButton(this, day, hour, cellHeight);
-                    addSubjectBtn.setOnTouchListener(new OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            SubjectButton subjectButton = (SubjectButton) v;
-                            if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                                selectedBtns.add(subjectButton);
-                                return true;
-                            } else if (event.getAction() == MotionEvent.ACTION_UP){
-                                addSubject(subjectButton);
-                                selectedBtns.clear();
-                            }
-                            return false;
-                        }
-                    });
+                    addSubjectBtn.setClickable(false);
                     dayGrid.addView(addSubjectBtn);
                 }
 
             }
+            dayGrid.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if(event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN){
+                        for(int i = 0; i < dayGrid.getChildCount(); i++){
+                            SubjectButton subjectBtn = (SubjectButton) dayGrid.getChildAt(i);
+                            if(event.getY() >= subjectBtn.getY() && event.getY() <= subjectBtn.getY() + subjectBtn.getHeight() && !subjectBtn.isAssigned()){
+                                subjectBtn.setSelected();
+                                if(!selectedBtns.contains(subjectBtn))
+                                    selectedBtns.add(subjectBtn);
+                            }
+                        }
+                    } else if (event.getAction() == MotionEvent.ACTION_UP){
+                        addSubject();
+                        for(SubjectButton subjectBtn : selectedBtns){
+                            subjectBtn.resetColor();
+                        }
+                        selectedBtns.clear();
+                    }
+                    return true;
+                }
+            });
+
         }
+
     }
 
-    public void addSubject(View view){
+    public void addSubject(){
             int hour = selectedBtns.get(0).getHour();
             Subject.Day day = selectedBtns.get(0).getDay();
             int duration = selectedBtns.size();
@@ -137,6 +162,19 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent,SubjectActivity.SUBJECT_REQUEST);
     }
 
+    public void removeSubject(SubjectButton subjectBtn){
+        SubjectDatabaseHelper subjectDatabaseHelper = new SubjectDatabaseHelper(this);
+        try{
+            subjectDatabaseHelper.deleteSubject(subjectBtn.getSubject());
+        } catch(SQLiteException e) {
+            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+        subjects.remove(subjectBtn.getSubject());
+        buildTimetable();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -144,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == SubjectActivity.SUBJECT_REQUEST){
             if(resultCode == RESULT_OK){
                 getSubjects();
-                buildTimetable(cellHeight);
+                buildTimetable();
             }
         }
 
