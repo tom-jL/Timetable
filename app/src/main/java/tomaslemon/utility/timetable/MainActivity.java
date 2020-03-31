@@ -23,27 +23,32 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Subject> subjects;
+    ArrayList<Subject> subjects; //subjects to get displayed on timetable
     ArrayList<SubjectButton> selectedBtns; //temporarily selected buttons for subject creation.
     int cellHeight;
-    Button selectedDay;
-    Handler btnHandler;
-    boolean justRemovedSubject;
+    Button selectedDay; // current maximized day
+    Handler btnHandler; // button handler for deleting subjects when pressed.
+    boolean justRemovedSubject; //flag to show if subject just deleted.
 
+
+    /*
+    On creation of this main activity, the layouts are setup and members are initialized.
+    The appropriate cell height based on the devices screen is set.
+    The subjects array is populated from the database and the timetable is built.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize
         subjects = new ArrayList<>();
         selectedBtns = new ArrayList<>();
 
         btnHandler = new Handler();
         justRemovedSubject = false;
 
-
-
-        cellHeight = getResources().getDisplayMetrics().heightPixels / 9; //find the height of grid cells based on screen height.
+        cellHeight = getResources().getDisplayMetrics().heightPixels / 9;
         TableRow rowDay = findViewById(R.id.rowDay);
         rowDay.setMinimumHeight(cellHeight);
 
@@ -52,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    /*
+    This method first clears the current subjects in the app then retrieves subjects stored in the database
+    and stores the data in the MainActivity subjects array.
+    If there is any error with retrieving each subject a toast message will display.
+     */
     private void getSubjects() {
         subjects.clear();
         SQLiteOpenHelper subjectDatabaseHelper = new SubjectDatabaseHelper(this);
@@ -85,6 +96,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    This method is responsible for building the time table including all current subjects and
+     inactive subjects (buttons) that have not been assigned yet as well as their touch events to add and remove
+     them. Each day has its own GridLayout that subject Buttons can be assigned to. Each GridLayout also deals
+     with touch events that determine where a subject is created and how long for. If a subject button is held down
+     for more than a second it will be removed from the database and then the view will be created without it.
+     */
     @SuppressLint("ClickableViewAccessibility")
     public void buildTimetable(){
         TableRow tableRow = findViewById(R.id.subjectsRow);
@@ -118,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                         });
                         dayGrid.addView(subjectBtn);
                         hour += subject.getDuration()-1;
-                        //add duration onto hours to skip rows, make rowSpan based on duration
                     }
                 }
                 if(available){
@@ -157,6 +174,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+    This method will add a subject based on the first selected button from selected buttons array.
+    It takes the buttons time and duration and passes this information to the subject activity where
+    the subject details can be configured.
+     */
     public void addSubject(){
             int hour = selectedBtns.get(0).getHour();
             Subject.Day day = selectedBtns.get(0).getDay();
@@ -168,6 +190,10 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent,SubjectActivity.SUBJECT_REQUEST);
     }
 
+    /*
+    This method removes the subject associated with the passed subject button from the database
+    and current array. It then rebuilds the timetable.
+     */
     public void removeSubject(SubjectButton subjectBtn){
         SubjectDatabaseHelper subjectDatabaseHelper = new SubjectDatabaseHelper(this);
         try{
@@ -182,6 +208,11 @@ public class MainActivity extends AppCompatActivity {
         buildTimetable();
     }
 
+
+    /*
+    The result of the subject activity will be passed back to the main activity and if a subject was created
+    the subjects array will be populated and the timetable rebuilt.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -193,9 +224,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
     }
 
+    //If a day button in the header of the timetable was clicked than maximize the day, if clicked again minimize it.
     public void dayClicked(View view) {
         TableLayout timeTable = findViewById(R.id.timeTable);
         TableRow tableRow = (TableRow) timeTable.getChildAt(0);

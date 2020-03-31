@@ -24,6 +24,11 @@ public class SubjectActivity extends AppCompatActivity {
 
     Subject subject;
 
+
+    /*
+    On creation of this activity the layout is setup, information from the main activity is retrieved,
+    a new subject is created and the title of the activity is set to the current timeslot.
+     */
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +47,9 @@ public class SubjectActivity extends AppCompatActivity {
 
     }
 
-
+    /*
+    If a colour button is pressed the subject colour is set to the same colour.
+     */
     public void selectColour(View view) {
         Button colorBtn = (Button) view;
         GridLayout colorBtns = findViewById(R.id.colorBtns);
@@ -53,12 +60,19 @@ public class SubjectActivity extends AppCompatActivity {
         subject.setColor(((ColorDrawable)colorBtn.getBackground()).getColor());
     }
 
+    /*
+    Option to cancel the subject creation.
+     */
     public void cancelSubject(View view) {
         Intent intent = new Intent();
         setResult(RESULT_CANCELED, intent);
         finish();
     }
 
+    /*
+    When the user pressed Okay to add the subject, the subject members are set and the subject is
+    added to the database. The app then returns to the main activity.
+     */
     public void addSubject(View view) {
         subject.setName(((EditText)findViewById(R.id.subjectName)).getText().toString());
         subject.setRoom(((EditText)findViewById(R.id.subjectRoom)).getText().toString());
