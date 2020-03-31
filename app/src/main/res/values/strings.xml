@@ -5,6 +5,15 @@
     <string name="Wednesday">WED</string>
     <string name="Thursday">THU</string>
     <string name="Friday">FRI</string>
+    <string name="time">time</string>
+    <string name="_9am">9am</string>
+    <string name="_10am">10am</string>
+    <string name="_11am">11am</string>
+    <string name="_12pm">12pm</string>
+    <string name="_1pm">1pm</string>
+    <string name="_2pm">2pm</string>
+    <string name="_3pm">3pm</string>
+    <string name="_4pm">4pm</string>
 
     <string-array name="duration">
         <item>1 hour</item>

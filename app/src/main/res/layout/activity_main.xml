@@ -1,202 +1,194 @@
-<LinearLayout
+<TableLayout
+    tools:context=".MainActivity"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/timeTable"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:collapseColumns="">
 
-    <TableLayout
-        android:id="@+id/timeTable"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:collapseColumns="">
+    <TableRow
+        android:id="@+id/rowDay">
 
-        <TableRow
-            android:id="@+id/rowDay">
+        <Button
+            android:id="@+id/btnHrs"
+            style="@style/Widget.AppCompat.Button"
+            android:text="@string/time"
+            android:textSize="24sp"
+        />
 
-            <Button
-                android:id="@+id/btnHrs"
-                style="@style/Widget.AppCompat.Button"
-                android:onClick="hrsClicked"
-                android:text="hrs"
-                android:textSize="24sp"
-            />
-
-            <Button
-                android:id="@+id/btnMon"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_weight="1"
-                android:onClick="dayClicked"
-                android:textSize="24sp"
-                android:text="@string/Monday">
-            </Button>
-
-            <Button
-                android:id="@+id/btnTue"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_weight="1"
-                android:onClick="dayClicked"
-                android:textSize="24sp"
-                android:text="@string/Tuesday">
-            </Button>
-
-            <Button
-                android:id="@+id/btnWed"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_weight="1"
-                android:onClick="dayClicked"
-                android:textSize="24sp"
-                android:text="@string/Wednesday">
-            </Button>
-            <Button
-                android:id="@+id/btnThu"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_weight="1"
-                android:onClick="dayClicked"
-                android:textSize="24sp"
-                android:text="@string/Thursday">
-            </Button>
-            <Button
-                android:id="@+id/btnFri"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_weight="1"
-                android:onClick="dayClicked"
-                android:textSize="24sp"
-                android:text="@string/Friday">
-            </Button>
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/subjectsRow"
+        <Button
+            android:id="@+id/btnMon"
+            style="@style/Widget.AppCompat.Button"
             android:layout_weight="1"
+            android:onClick="dayClicked"
+            android:textSize="24sp"
+            android:text="@string/Monday">
+        </Button>
+
+        <Button
+            android:id="@+id/btnTue"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_weight="1"
+            android:onClick="dayClicked"
+            android:textSize="24sp"
+            android:text="@string/Tuesday">
+        </Button>
+
+        <Button
+            android:id="@+id/btnWed"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_weight="1"
+            android:onClick="dayClicked"
+            android:textSize="24sp"
+            android:text="@string/Wednesday">
+        </Button>
+        <Button
+            android:id="@+id/btnThu"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_weight="1"
+            android:onClick="dayClicked"
+            android:textSize="24sp"
+            android:text="@string/Thursday">
+        </Button>
+        <Button
+            android:id="@+id/btnFri"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_weight="1"
+            android:onClick="dayClicked"
+            android:textSize="24sp"
+            android:text="@string/Friday">
+        </Button>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/subjectsRow"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/timeCell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/_9am"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/_10am"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/_11am"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/_12pm"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/_1pm"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/_2pm"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/_3pm"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/_4pm"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <GridLayout
+            android:id="@+id/gridMon"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:background="@android:color/darker_gray"
+            android:columnCount="1">
 
-            <LinearLayout
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+        </GridLayout>
 
-                <TextView
-                    android:id="@+id/timeCell"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="9am"
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
+        <GridLayout
+            android:id="@+id/gridTue"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:columnCount="1">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="10am"
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
+        </GridLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="11am"
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
+        <GridLayout
+            android:id="@+id/gridWed"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:columnCount="1">
 
+        </GridLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="12pm"
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
+        <GridLayout
+            android:id="@+id/gridThu"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:columnCount="1">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="1pm"
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
+        </GridLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="2pm"
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
+        <GridLayout
+            android:id="@+id/gridFri"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="@android:color/darker_gray"
+            android:columnCount="1">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="3pm"
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
+        </GridLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="4pm"
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
+    </TableRow>
 
-            </LinearLayout>
-
-            <GridLayout
-                android:id="@+id/gridMon"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:background="@android:color/darker_gray"
-                android:columnCount="1">
-
-            </GridLayout>
-
-            <GridLayout
-                android:id="@+id/gridTue"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:background="@android:color/darker_gray"
-                android:columnCount="1">
-
-            </GridLayout>
-
-            <GridLayout
-                android:id="@+id/gridWed"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"
-                android:layout_width="match_parent"
-                android:columnCount="1">
-
-            </GridLayout>
-
-            <GridLayout
-                android:id="@+id/gridThu"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:background="@android:color/darker_gray"
-                android:columnCount="1">
-
-            </GridLayout>
-
-            <GridLayout
-                android:id="@+id/gridFri"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:background="@android:color/darker_gray"
-                android:columnCount="1">
-
-            </GridLayout>
-
-        </TableRow>
-
-    </TableLayout>
-
-</LinearLayout>
+</TableLayout>

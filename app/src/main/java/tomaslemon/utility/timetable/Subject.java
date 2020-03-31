@@ -23,7 +23,7 @@ public class Subject {
         FRI
     }
 
-    public Subject(int time, int duration, Day day){
+    Subject(int time, int duration, Day day){
         this.name = "";
         this.day = day;
         this.time = time;
@@ -34,7 +34,7 @@ public class Subject {
 
 
 
-    public Subject(long id, String name, Day day, int time, int duration, int color, String room){
+    Subject(long id, String name, Day day, int time, int duration, int color, String room){
         this.id = id;
         this.name = name;
         this.day = day;
@@ -44,19 +44,11 @@ public class Subject {
         this.room = room;
     }
 
-    public void setColor(int color) {
+    void setColor(int color) {
         this.color = color;
     }
 
-    public void setDay(Day day) {
-        this.day = day;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public void setId(long id) {
+    void setId(long id) {
         this.id = id;
     }
 
@@ -64,23 +56,19 @@ public class Subject {
         this.name = name;
     }
 
-    public void setRoom(String room) {
+    void setRoom(String room) {
         this.room = room;
     }
 
-    public void setTime(int time) {
-        this.time = time;
-    }
-
-    public Day getDay() {
+    Day getDay() {
         return day;
     }
 
-    public int getDuration() {
+    int getDuration() {
         return duration;
     }
 
-    public int getTime() {
+    int getTime() {
         return time;
     }
 
@@ -88,15 +76,15 @@ public class Subject {
         return name;
     }
 
-    public int getColor() {
+    int getColor() {
         return color;
     }
 
-    public String getRoom() {
+    String getRoom() {
         return room;
     }
 
-    public long getId() {
+    long getId() {
         return id;
     }
 }

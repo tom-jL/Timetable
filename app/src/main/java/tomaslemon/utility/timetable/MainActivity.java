@@ -1,25 +1,19 @@
 package tomaslemon.utility.timetable;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -87,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     public void buildTimetable(int cellHeight){
-        TableRow tableRow = (TableRow) findViewById(R.id.subjectsRow);
+        TableRow tableRow = findViewById(R.id.subjectsRow);
         boolean available;
         for(Subject.Day day : Subject.Day.values()){
             GridLayout dayGrid = (GridLayout) tableRow.getChildAt(day.ordinal()+1);
@@ -158,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void dayClicked(View view) {
-        TableLayout timeTable = (TableLayout) findViewById(R.id.timeTable);
+        TableLayout timeTable = findViewById(R.id.timeTable);
         TableRow tableRow = (TableRow) timeTable.getChildAt(0);
         if(view == selectedDay){
             for(int i = 1; i < tableRow.getChildCount(); i++){
@@ -173,9 +167,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-    }
-
-    public void hrsClicked(View view) {
     }
 
 }
