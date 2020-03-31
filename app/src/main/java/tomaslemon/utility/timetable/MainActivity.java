@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     int cellHeight;
     Button selectedDay;
     Handler btnHandler;
+    boolean justRemovedSubject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
         selectedBtns = new ArrayList<>();
 
         btnHandler = new Handler();
+        justRemovedSubject = false;
+
+
 
         cellHeight = getResources().getDisplayMetrics().heightPixels / 9; //find the height of grid cells based on screen height.
         TableRow rowDay = findViewById(R.id.rowDay);
@@ -128,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if(event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN){
+                        justRemovedSubject = false;
                         for(int i = 0; i < dayGrid.getChildCount(); i++){
                             SubjectButton subjectBtn = (SubjectButton) dayGrid.getChildAt(i);
                             if(event.getY() >= subjectBtn.getY() && event.getY() <= subjectBtn.getY() + subjectBtn.getHeight() && !subjectBtn.isAssigned()){
@@ -137,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     } else if (event.getAction() == MotionEvent.ACTION_UP){
-                        addSubject();
+                        if(!justRemovedSubject)
+                            addSubject();
                         for(SubjectButton subjectBtn : selectedBtns){
                             subjectBtn.resetColor();
                         }
@@ -172,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         subjects.remove(subjectBtn.getSubject());
+        justRemovedSubject = true;
         buildTimetable();
     }
 
